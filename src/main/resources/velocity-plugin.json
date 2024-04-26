@@ -1,0 +1,10 @@
+{
+  "id": "server-registration",
+  "name": "server-registration",
+  "version": "1.0.1",
+  "authors": [
+    "MrManHD"
+  ],
+  "dependencies": [],
+  "main": "world.estaria.server.registration.plugin.VelocityPlugin"
+}
