@@ -32,7 +32,7 @@ dependencies {
     compileOnly("world.avionik:config-kit:1.0.2")
 
     // estaria dependencies
-    compileOnly("world.estaria:kube-configmap-kit:1.0.1")
+    compileOnly("world.estaria:kube-configmap-kit:1.0.4")
 
     // velocity dependencies
     compileOnly("com.velocitypowered:velocity-api:3.1.1")
