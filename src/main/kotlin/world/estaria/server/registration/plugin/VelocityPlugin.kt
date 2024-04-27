@@ -2,6 +2,7 @@ package world.estaria.server.registration.plugin
 
 import com.google.inject.Inject
 import com.velocitypowered.api.event.Subscribe
+import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.proxy.ProxyServer
@@ -18,7 +19,7 @@ import java.util.logging.Logger
 
 @Plugin(id = "server-registration", name = "server-registration", version = "1.0.1", authors = ["MrManHD"])
 class VelocityPlugin @Inject constructor(
-    server: ProxyServer,
+    private val server: ProxyServer,
     logger: Logger
 ) {
 
@@ -28,10 +29,18 @@ class VelocityPlugin @Inject constructor(
 
     @Subscribe
     fun handleInitialize(event: ProxyInitializeEvent) {
+        registerKubernetesInformers()
+
         val config = this.configMapHandler.getConfig()
         config.serversToRegister
             .map { it.toServerInfo() }
             .forEach { this.serverRegisterManager.registerServer(it) }
+    }
+
+    //TODO: for testing
+    @Subscribe
+    fun handle(event: PlayerChooseInitialServerEvent) {
+        event.setInitialServer(this.server.allServers.first())
     }
 
     private fun registerKubernetesInformers() {
