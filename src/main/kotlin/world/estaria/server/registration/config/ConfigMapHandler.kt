@@ -22,6 +22,10 @@ class ConfigMapHandler(
         }
     }
 
+    fun updateConfig() {
+        this.configMapManager.updateConfig(this.configName)
+    }
+
     fun getConfig(): Config {
         return this.configMapManager.getConfig(this.configName, this.configSerializer)
             ?: throw NullPointerException("failed to find $configName")
