@@ -11,6 +11,7 @@ import io.fabric8.kubernetes.client.KubernetesClientBuilder
 import world.estaria.server.registration.PodResourceEventHandler
 import world.estaria.server.registration.ServerRegisterManager
 import world.estaria.server.registration.config.ConfigMapHandler
+import world.estaria.server.registration.listener.ProxyReloadListener
 import java.util.logging.Logger
 
 /**
@@ -35,6 +36,12 @@ class VelocityPlugin @Inject constructor(
         config.serversToRegister
             .map { it.toServerInfo() }
             .forEach { this.serverRegisterManager.registerServer(it) }
+
+        val eventManager = this.server.eventManager
+        eventManager.register(
+            this,
+            ProxyReloadListener(this.kubernetesClient, this.configMapHandler, this.serverRegisterManager)
+        )
     }
 
     //TODO: for testing
