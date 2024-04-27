@@ -26,6 +26,14 @@ class ServerRegisterManager(
         return this.proxyServer.getServer(name).isPresent
     }
 
+    fun isServerRegistered(serverInfo: ServerInfo): Boolean {
+        return this.proxyServer.getServer(serverInfo.name).isPresent
+    }
+
+    fun getServers(): List<ServerInfo> {
+        return this.proxyServer.allServers.map { it.serverInfo }
+    }
+
     fun registerServer(serverInfo: ServerInfo) {
         this.proxyServer.registerServer(serverInfo)
         this.logger.info("Register new server ${serverInfo.name} on ${serverInfo.address}")
