@@ -44,11 +44,6 @@ class VelocityPlugin @Inject constructor(
         )
     }
 
-    //TODO: for testing
-    @Subscribe
-    fun handle(event: PlayerChooseInitialServerEvent) {
-        event.setInitialServer(this.server.allServers.first())
-    }
 
     private fun registerKubernetesInformers() {
         val informerFactory = this.kubernetesClient.informers()
